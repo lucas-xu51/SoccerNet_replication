@@ -7,10 +7,9 @@
 - **Python 3.x**: Confirm that your Python version is 3.x.
 
 ### Clone Repository
-Clone the repository from GitHub:
+Clone the repository from GitHub: https://github.com/mkoshkina/jersey-number-pipeline/tree/main
 ```bash
 git clone https://github.com/mkoshkina/jersey-number-pipeline.git
-cd jersey-number-pipeline
 ```
 
 ## Steps to Run the Project
@@ -20,6 +19,7 @@ Check the dependencies in `setup.py` and install them. Run the following command
 ```bash
 C:/Users/grizz/anaconda3/envs/myenv/python.exe c:/Users/grizz/OneDrive/Desktop/COSC419/jersey-number-pipeline/jersey-number-pipeline/setup.py SoccerNet
 ```
+This section of code automatically creates the conda virtual environment and downloads the dependencies
 
 ### 2. Prepare the Dataset
 Download and extract the dataset. Ensure the structure is as follows:
@@ -30,8 +30,8 @@ Download and extract the dataset. Ensure the structure is as follows:
 ### 3. Run the Main Script
 Run `main.py` and set the dataset and part. For example, use `SoccerNet` as the dataset and `train` as the part.
 
-### 4. Centroid ReID File Issue
-If you encounter errors while running `centroid_reid.py`, follow these steps:
+### 4. Centroid ReID File Issue (The problem I had)
+Some possible solutions to errors
 
 #### Define `jersey_id_result` in `configuration.py`:
 ```python
@@ -51,7 +51,7 @@ With:
 from san2.sam import ...
 ```
 
-#### Download the Pretrained Model
+#### Download the Pretrained Model (necessary)
 Download the trained model from the following link:
 [Trained Model](https://drive.google.com/drive/folders/1NWD2Q0JGasGm9HTcOy4ZqsIqK4-IfknK)
 
@@ -87,18 +87,10 @@ With:
 from pytorch_lightning.callbacks import Callback
 ```
 
-### 7. Handle `self.hparam` Parameter Issue
-The `self.hparam` parameter might not work due to updates in PyTorch Lightning. Convert it to a dictionary instead. For example:
+### 7. `self.hparam` Parameter Issue
+When the Hparam parameter is updated to a dictionary, the self.hparam parameter may not be passed properly due to the pytorch.lighting update or other reasons
+My current problem: I do not know the required version of pytorch.lighting, whether the reduced version will solve it or how to pass the parameters correctly
 ```python
-self.hparams = {"param_name": value}
+self.hparams = AttributeDict(hparams)
 ```
-
-### PyTorch Lightning Version
-If you encounter compatibility issues, try downgrading PyTorch Lightning to a version compatible with the repository codebase. For example:
-```bash
-pip install pytorch-lightning==1.5.10
-```
-
-## Summary
-Follow the steps above to set up the environment, resolve compatibility issues, and successfully run the project. Ensure you adjust for updates in external libraries and pretrained models as necessary.
-
+(this code in reid/centroid-reid/modelling/bases.py)
